@@ -1,0 +1,31 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    display: flex;
+}
+
+.login-container, .dashboard {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+form {
+    display: flex;    
+}
+
+input, button {
+    padding: 10px;
+    border-radius: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
