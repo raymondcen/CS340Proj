@@ -40,11 +40,10 @@
                 <div class="col-md-12">
                     <div class="page-header clearfix">
                         <h2 class="pull-left">Exercises for Workout <?php echo htmlspecialchars($workout_id); ?></h2>
-                        <a href="createExercise.php?workout_id=<?php echo $workout_id; ?>" class="btn btn-success pull-right">Add New Exercise</a>
+                        <a href="addExercises.php?workout_id=<?php echo $workout_id; ?>" class="btn btn-success pull-right">Add New Exercise</a>
                     </div>
 
                     <?php
-                    //Fetch exercises for the specified workout
                     $exercise_sql = "
                         SELECT 
                             e.exercise_name, 
@@ -77,6 +76,7 @@
                                 echo "<th>Rest Time (sec)</th>";
                                 echo "<th>Weights (kg)</th>";
                                 echo "<th>Muscle Group</th>";
+                                echo "<th>Action</th>"; 
                                 echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -89,6 +89,11 @@
                                     echo "<td>" . $row['rest_time'] . "</td>";
                                     echo "<td>" . ($row['weights'] ? $row['weights'] : 'N/A') . "</td>";
                                     echo "<td>" . $row['muscle_group'] . "</td>";
+                                    echo "<td>";
+                                    //Add Edit and Delete links
+                                    echo "<a href='editExercise.php?exercise_name=" . $row['exercise_name'] . "&workout_id=" . $workout_id . "' title='Edit Exercise' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a> ";
+                                    echo "<a href='deleteExercise.php?exercise_name=" . $row['exercise_name'] . "&workout_id=" . $workout_id . "' title='Delete Exercise' data-toggle='tooltip' onclick='return confirmDelete();'><span class='glyphicon glyphicon-trash'></span></a>";
+                                    echo "</td>";
                                     echo "</tr>";
                                 }
 
@@ -105,6 +110,13 @@
 
                     mysqli_stmt_close($stmt);
                     ?>
+                
+                    <!-- //confirm delete -->
+                    <script type="text/javascript">
+                        function confirmDelete() {
+                            return confirm("Are you sure you want to delete this exercise from the workout?");
+                        }
+                    </script>
 
                     <p><a href="viewWorkouts.php" class="btn btn-primary">Back to Workouts</a></p>
                 </div>
