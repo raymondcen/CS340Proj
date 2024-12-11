@@ -44,17 +44,20 @@
                     </div>
 
                     <?php
-                    // Fetch workouts for the member
+                    //get workouts and rating
                     $workout_sql = "
                         SELECT 
-                            workout_id, 
-                            CONCAT(year, '-', LPAD(month, 2, '0'), '-', LPAD(day, 2, '0')) AS formatted_date 
+                            Workout.workout_id, 
+                            CONCAT(Workout.year, '-', LPAD(Workout.month, 2, '0'), '-', LPAD(Workout.day, 2, '0')) AS formatted_date,
+                            Rating.ment_rating,
+                            Rating.phys_rating
                         FROM 
-                            Workout 
+                            Workout
+                        LEFT JOIN Rating ON Workout.workout_id = Rating.workout_id
                         WHERE 
-                            member_id = ? 
+                            Workout.member_id = ?
                         ORDER BY 
-                            year DESC, month DESC, day DESC";
+                            Workout.year DESC, Workout.month DESC, Workout.day DESC";
 
                     if ($stmt = mysqli_prepare($link, $workout_sql)) {
                         mysqli_stmt_bind_param($stmt, "i", $member_id);
@@ -67,6 +70,8 @@
                                 echo "<tr>";
                                 echo "<th width='15%'>Workout ID</th>";
                                 echo "<th>Date</th>";
+                                echo "<th>Mental Rating</th>";
+                                echo "<th>Physical Rating</th>";
                                 echo "<th>Actions</th>";
                                 echo "</tr>";
                                 echo "</thead>";
@@ -76,10 +81,11 @@
                                     echo "<tr>";
                                     echo "<td>" . $row['workout_id'] . "</td>";
                                     echo "<td>" . $row['formatted_date'] . "</td>";
+                                    echo "<td>" . ($row['ment_rating'] !== NULL ? $row['ment_rating'] : 'N/A') . "</td>";
+                                    echo "<td>" . ($row['phys_rating'] !== NULL ? $row['phys_rating'] : 'N/A') . "</td>";
                                     echo "<td>";
                                     echo " <a href='viewExercises.php?workout_id=" . $row['workout_id'] . "' title='View Exercises' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
-                                    echo " <a href='deleteWorkout.php?workout_id=" . $row['workout_id'] . "' title='Delete Workout' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
-                                
+                                    echo " <a href='deleteWorkout.php?workout_id=" . $row['workout_id'] . "' title='Delete Workout' data-toggle='tooltip' onclick='return confirmDelete();'><span class='glyphicon glyphicon-trash'></span></a>";
                                     echo "</td>";
                                     echo "</tr>";
                                 }
@@ -98,6 +104,15 @@
                     // Close statement
                     mysqli_stmt_close($stmt);
                     ?>
+
+
+
+                    <!-- //confirm delete -->
+                    <script type="text/javascript">
+                        function confirmDelete() {
+                            return confirm("Are you sure you want to delete this workout?");
+                        }
+                    </script>
 
                     <p><a href="index.php" class="btn btn-primary">Back</a></p>
                 </div>
