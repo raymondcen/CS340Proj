@@ -51,7 +51,7 @@
 					<li> DELETE employee and dependent records </li>
 				</ol>
 		       <h2 class="pull-left">Members</h2>
-                        <a href="createEmployee.php" class="btn btn-success pull-right">Add New Employee</a>
+                        <a href="addMembers.php" class="btn btn-success pull-right">Add Member</a>
                     </div>
                     <?php
                     // Include config file
