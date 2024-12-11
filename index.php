@@ -83,9 +83,9 @@
                                         
                                         echo "<td>";
                                              echo "<a href='viewWorkouts.php?id=". $row['member_id']."&username=".$row['username']."' title='View Workouts' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
-                                             //echo "<a href='updateEmployee.php?Ssn=". $row['Ssn'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+                                             echo "<a href='updateMember.php?member_id=". $row['member_id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
                                              echo "<a href='deleteMember.php?member_id=". $row['member_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
-										 	 //echo "<a href='viewDependents.php?Ssn=". $row['Ssn']."&Lname=".$row['Lname']."' title='View Dependents' data-toggle='tooltip'><span class='glyphicon glyphicon-user'></span></a>";
+					     //echo "<a href='viewDependents.php?Ssn=". $row['Ssn']."&Lname=".$row['Lname']."' title='View Dependents' data-toggle='tooltip'><span class='glyphicon glyphicon-user'></span></a>";
                                         echo "</td>";
                                     echo "</tr>";
                                 }
