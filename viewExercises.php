@@ -45,21 +45,21 @@
 
                     <?php
                     $exercise_sql = "
-                        SELECT 
-                            e.exercise_name, 
-                            e.reps, 
-                            e.sets, 
-                            e.rest_time, 
-                            e.weights, 
-                            mg.name AS muscle_group 
-                        FROM 
-                            Exercise e
-                        JOIN Works w ON e.exercise_name = w.exercise_name
-                        JOIN Muscle_Group mg ON w.muscle_id = mg.muscle_id
-                        WHERE 
-                            e.workout_id = ? 
-                        ORDER BY 
-                            e.exercise_name";
+                    SELECT 
+                        e.exercise_name, 
+                        e.reps, 
+                        e.sets, 
+                        e.rest_time, 
+                        e.weights, 
+                        IFNULL(mg.name, 'No muscle group') AS muscle_group
+                    FROM 
+                        Exercise e
+                    LEFT JOIN Works w ON e.exercise_name = w.exercise_name
+                    LEFT JOIN Muscle_Group mg ON w.muscle_id = mg.muscle_id
+                    WHERE 
+                        e.workout_id = ? 
+                    ORDER BY 
+                        e.exercise_name";
 
                     if ($stmt = mysqli_prepare($link, $exercise_sql)) {
                         mysqli_stmt_bind_param($stmt, "i", $workout_id);
@@ -90,7 +90,6 @@
                                     echo "<td>" . ($row['weights'] ? $row['weights'] : 'N/A') . "</td>";
                                     echo "<td>" . $row['muscle_group'] . "</td>";
                                     echo "<td>";
-                                    //Add Edit and Delete links
                                     echo "<a href='editExercise.php?exercise_name=" . $row['exercise_name'] . "&workout_id=" . $workout_id . "' title='Edit Exercise' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a> ";
                                     echo "<a href='deleteExercise.php?exercise_name=" . $row['exercise_name'] . "&workout_id=" . $workout_id . "' title='Delete Exercise' data-toggle='tooltip' onclick='return confirmDelete();'><span class='glyphicon glyphicon-trash'></span></a>";
                                     echo "</td>";
