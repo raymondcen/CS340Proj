@@ -18,18 +18,15 @@ if (isset($_SESSION["member_id"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect form data
     $exercise_name = trim($_POST["exercise_name"]);
     $reps = trim($_POST["reps"]);
     $sets = trim($_POST["sets"]);
     $rest_time = !empty(trim($_POST["rest_time"])) ? trim($_POST["rest_time"]) : NULL;
     $weights = !empty(trim($_POST["weights"])) ? trim($_POST["weights"]) : NULL;
 
-    // Validate form data
     if (empty($exercise_name) || empty($reps) || empty($sets)) {
         echo "<p class='text-danger'>Please fill all required fields.</p>";
     } else {
-        // Insert exercise data into the Exercise table
         $insert_sql = "INSERT INTO Exercise (exercise_name, reps, sets, rest_time, weights, workout_id) 
                        VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -37,9 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_bind_param($stmt, "siiiii", $exercise_name, $reps, $sets, $rest_time, $weights, $workout_id);
 
             if (mysqli_stmt_execute($stmt)) {
-                // Redirect to the exercises page after adding the exercise
                 header("Location: viewExercises.php?workout_id=" . $workout_id);
-                exit(); // Ensure the script stops executing after redirection
+                exit(); 
             } else {
                 echo "<p class='text-danger'>Error: Could not add exercise. " . mysqli_error($link) . "</p>";
             }

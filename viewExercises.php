@@ -90,7 +90,7 @@
                                     echo "<td>" . ($row['weights'] ? $row['weights'] : 'N/A') . "</td>";
                                     echo "<td>" . $row['muscle_group'] . "</td>";
                                     echo "<td>";
-                                    echo "<a href='editExercise.php?exercise_name=" . $row['exercise_name'] . "&workout_id=" . $workout_id . "' title='Edit Exercise' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a> ";
+                                   // echo "<a href='editExercise.php?exercise_name=" . $row['exercise_name'] . "&workout_id=" . $workout_id . "' title='Edit Exercise' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a> ";
                                     echo "<a href='deleteExercise.php?exercise_name=" . $row['exercise_name'] . "&workout_id=" . $workout_id . "' title='Delete Exercise' data-toggle='tooltip' onclick='return confirmDelete();'><span class='glyphicon glyphicon-trash'></span></a>";
                                     echo "</td>";
                                     echo "</tr>";

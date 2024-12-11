@@ -57,14 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_num_rows($stmt_check) > 0) {
                 $SQL_err = "A workout for this date already exists. Please choose a different date.";
             } else {
-                // Define the SQL query for inserting a workout
                 $insert_sql = "INSERT INTO Workout (member_id, day, month, year) VALUES (?, ?, ?, ?)";
                 if ($stmt_insert = mysqli_prepare($link, $insert_sql)) {
                     mysqli_stmt_bind_param($stmt_insert, 'iiii', $param_member_id, $param_day, $param_month, $param_year);
                     if (mysqli_stmt_execute($stmt_insert)) {
                         $workout_id = mysqli_insert_id($link);
 
-                        // Define the SQL query for inserting the ratings
                         $rating_sql = "INSERT INTO Rating (workout_id, member_id, ment_rating, phys_rating) VALUES (?, ?, ?, ?)";
                         if ($stmt_rating = mysqli_prepare($link, $rating_sql)) {
                             mysqli_stmt_bind_param($stmt_rating, 'iiii', $workout_id, $param_member_id, $param_ment_rating, $param_phys_rating);
@@ -72,9 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $param_phys_rating = $phys_rating;
 
                             if (mysqli_stmt_execute($stmt_rating)) {
-                                // Successful insert, redirect to viewWorkouts
                                 header("Location: viewWorkouts.php");
-                                exit(); // Make sure the script ends after redirect
+                                exit(); 
                             } else {
                                 $SQL_err = "Error inserting rating: " . mysqli_error($link);
                             }

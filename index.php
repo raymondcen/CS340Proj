@@ -44,12 +44,8 @@
                 <div class="col-md-12">
 		    <div class="page-header clearfix">
 		     <h2> Gym Tracker </h2> 
-                       <p> Project should include CRUD operations. In this website you can:
-				<ol> 	<li> CREATE new employess and  dependents </li>
-					<li> RETRIEVE all dependents and prjects for an employee</li>
-                                        <li> UPDATE employeee and dependent records</li>
-					<li> DELETE employee and dependent records </li>
-				</ol>
+                <p> This application is for tracking gym members and their workouts. You can create new members, edit current and delete members. 
+                    Members can have workouts that are soirted by date. Each work as a set of unique exercises. You can add exercises specifying reps, sets and what exercise.
 		       <h2 class="pull-left">Members</h2>
                         <a href="addMembers.php" class="btn btn-success pull-right">Add Member</a>
                     </div>

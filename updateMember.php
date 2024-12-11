@@ -1,25 +1,20 @@
 <?php
 	session_start();	
-// Include config file
 	require_once "config.php";
 
-// Define and initalize variables with empty values
 $username = $password = $fname = $lname = "";
 $username_err = $password_err = $fname_err = $lname_err = "";
 
 if(isset($_GET["member_id"]) && !empty(trim($_GET["member_id"]))){
 	$_SESSION["member_id"] = $_GET["member_id"];
 
-     // Prepare a select statement
      $sql1 = "SELECT * FROM Member WHERE member_id = ?";
 
      if($stmt1 = mysqli_prepare($link, $sql1)){
-        // Bind variables to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt1, "s", $param_memid); 
         
         $param_memid = trim($_GET["member_id"]);
 
-         // Attempt to execute the prepared statement
          if(mysqli_stmt_execute($stmt1)){
             $result1 = mysqli_stmt_get_result($stmt1);
 			if(mysqli_num_rows($result1) > 0){
@@ -36,10 +31,8 @@ if(isset($_GET["member_id"]) && !empty(trim($_GET["member_id"]))){
 }   
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    // the id is hidden and can not be changed
     $member_id = $_SESSION["member_id"];
 
-    // Validate form data
     $username = trim($_POST["username"]);
     if (empty($username)) {
         $username_err = "Please enter a username.";
@@ -69,10 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $lname_err = "Please enter a valid last name.";
     }
 
-    // Check input errors before inserting into database
     if(empty($fname_err) && empty($lname_err) && empty($username_err) && empty($password_err)){
-        // Prepare an update statement
-
         $sql = "UPDATE Member SET fname=?, lname=?, username=?, password=? WHERE member_id=?";
 
         if($stmt = mysqli_prepare($link, $sql)){
@@ -85,37 +75,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
              $param_password = $password;
              $param_memid = $member_id;
 
-             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                // Records updated successfully. Redirect to landing page
                 header("location: index.php");
                 exit();
             } else{
                 echo "<center><h2>Error when updating</center></h2>";
             }
         }        
-        // Close statement
         mysqli_stmt_close($stmt);
     }
     // Close connection
     mysqli_close($link);
 } else {
-    // Check existence of sID parameter before processing further
-	// Form default values
-
 	if(isset($_GET["member_id"]) && !empty(trim($_GET["member_id"]))){
 		$_SESSION["member_id"] = $_GET["member_id"];
 
-		// Prepare a select statement
 		$sql1 = "SELECT * FROM Member WHERE member_id = ?";
   
 		if($stmt1 = mysqli_prepare($link, $sql1)){
-			// Bind variables to the prepared statement as parameters
 			mysqli_stmt_bind_param($stmt1, "s", $param_memid);      
-			// Set parameters
 			$param_memid = trim($_GET["member_id"]);
 
-			// Attempt to execute the prepared statement
 			if(mysqli_stmt_execute($stmt1)){
 				$result1 = mysqli_stmt_get_result($stmt1);
 				if(mysqli_num_rows($result1) == 1){
@@ -128,7 +108,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					$lname = $row['lname'];
 
 				} else{
-					// URL doesn't contain valid id. Redirect to error page
 					header("location: error.php");
 					exit();
 				}                
@@ -136,13 +115,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				echo "Error in member id while updating";
 			}		
 		}
-			// Close statement
 			mysqli_stmt_close($stmt1);
-        
-			// Close connection
 			mysqli_close($link);
 	}  else{
-        // URL doesn't contain id parameter. Redirect to error page
         header("location: error.php");
         exit();
 	}	

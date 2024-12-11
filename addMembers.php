@@ -1,16 +1,13 @@
 <?php
 session_start();
-require_once "config.php";  // Include your database configuration file
+require_once "config.php";  
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get input values from the form
     $username = $_POST['username'];
     $password = $_POST['password'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
 
-    // Check if the username already exists in the database
     $sql_check = "SELECT member_id FROM Member WHERE username = ?";
     if ($stmt_check = mysqli_prepare($link, $sql_check)) {
         mysqli_stmt_bind_param($stmt_check, "s", $username);
@@ -20,16 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_stmt_num_rows($stmt_check) > 0) {
             $username_error = "Username already exists. Please choose another.";
         } else {
-            // Insert the new member into the database
             $sql = "INSERT INTO Member (username, password, fname, lname) VALUES (?, ?, ?, ?)";
             if ($stmt = mysqli_prepare($link, $sql)) {
-                // Bind the parameters (but not member_id, which is auto-generated)
                 mysqli_stmt_bind_param($stmt, "ssss", $username, $password, $fname, $lname);
 
-                // Execute the statement
                 if (mysqli_stmt_execute($stmt)) {
                     echo "<script>alert('New member added successfully');</script>";
-                    echo "<script>window.location.href = 'index.php';</script>";  // Redirect to the members page
+                    echo "<script>window.location.href = 'index.php';</script>";  
                 } else {
                     echo "ERROR: Could not execute query. " . mysqli_error($link);
                 }
@@ -45,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-// Close the connection
 mysqli_close($link);
 ?>
 
