@@ -80,13 +80,13 @@
                                         echo "<td>" . $row['password'] . "</td>";
                                         echo "<td>" . $row['fname'] . "</td>";
                                         echo "<td>" . $row['lname'] . "</td>";
-                                        // echo "<td>";
-                                            
-                                        //     echo "<a href='viewProjects.php?Ssn=". $row['Ssn']."&Lname=".$row['Lname']."' title='View Projects' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
-                                        //     echo "<a href='updateEmployee.php?Ssn=". $row['Ssn'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                                        //     echo "<a href='deleteEmployee.php?Ssn=". $row['Ssn'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
-										// 	echo "<a href='viewDependents.php?Ssn=". $row['Ssn']."&Lname=".$row['Lname']."' title='View Dependents' data-toggle='tooltip'><span class='glyphicon glyphicon-user'></span></a>";
-                                        // echo "</td>";
+                                        
+                                        echo "<td>";
+                                             echo "<a href='viewWorkouts.php?id=". $row['member_id']."&username=".$row['username']."' title='View Workout' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
+                                             //echo "<a href='updateEmployee.php?Ssn=". $row['Ssn'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+                                             //echo "<a href='deleteEmployee.php?Ssn=". $row['Ssn'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+										 	 //echo "<a href='viewDependents.php?Ssn=". $row['Ssn']."&Lname=".$row['Lname']."' title='View Dependents' data-toggle='tooltip'><span class='glyphicon glyphicon-user'></span></a>";
+                                        echo "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            
@@ -99,8 +99,44 @@
                     } else{
                         echo "ERROR: Could not able to execute $sql. <br>" . mysqli_error($link);
                     }
+
+
+                    // //DISPLAY EXERCISES
+                    // $sql2 = "SELECT * FROM DEPT_STATS";
+                    // if($result2 = mysqli_query($link, $sql2)){
+                    //     if(mysqli_num_rows($result2) > 0){
+                    //         echo "<div class='col-md-4'>";
+					// 		echo "<table width=30% class='table table-bordered table-striped'>";
+                    //             echo "<thead>";
+                    //                 echo "<tr>";
+                    //                     echo "<th width=20%>Dno</th>";
+                    //                     echo "<th width = 20%>Number of Employees</th>";
+                    //                     echo "<th width = 40%>Average Salary</th>";
+	
+                    //             echo "</thead>";
+                    //             echo "<tbody>";
+                    //             while($row = mysqli_fetch_array($result2)){
+                    //                 echo "<tr>";
+                    //                     echo "<td>" . $row['Dnumber'] . "</td>";
+                    //                     echo "<td>" . $row['Emp_count'] . "</td>";
+                    //                     echo "<td>" . $row['Avg_salary'] . "</td>";
+               
+                    //                 echo "</tr>";
+                    //             }
+                    //             echo "</tbody>";                            
+                    //         echo "</table>";
+                    //         // Free result set
+                    //         mysqli_free_result($result2);
+                    //     } else{
+                    //         echo "<p class='lead'><em>No records were found for Dept Stats.</em></p>";
+                    //     }
+                    // } else{
+                    //     echo "ERROR: Could not able to execute $sql2. <br>" . mysqli_error($link);
+                    // }
 					
+                    // Close connection
                     mysqli_close($link);
+                   
                     ?>
                 </div>
 
