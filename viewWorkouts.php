@@ -40,7 +40,7 @@
                 <div class="col-md-12">
                     <div class="page-header clearfix">
                         <h2 class="pull-left">Workouts for <?php echo htmlspecialchars($username); ?></h2>
-                        <a href="createWorkout.php" class="btn btn-success pull-right">Add New Workout</a>
+                        <a href="addWorkout.php" class="btn btn-success pull-right">Add New Workout</a>
                     </div>
 
                     <?php
@@ -77,8 +77,9 @@
                                     echo "<td>" . $row['workout_id'] . "</td>";
                                     echo "<td>" . $row['formatted_date'] . "</td>";
                                     echo "<td>";
-                                    echo "<a href='viewExercises.php?workout_id=" . $row['workout_id'] . "' title='View Exercises' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
+                                    echo " <a href='viewExercises.php?workout_id=" . $row['workout_id'] . "' title='View Exercises' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                     echo " <a href='deleteWorkout.php?workout_id=" . $row['workout_id'] . "' title='Delete Workout' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                                
                                     echo "</td>";
                                     echo "</tr>";
                                 }
